@@ -7,11 +7,23 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+        @font-face {
+            font-family: 'DoodleFont3';
+            src: url('./doodlefont3.ttf') format('truetype');
+        }
+
+        html{scroll-behavior:smooth}
+
         body {
             font-family: 'Arial', sans-serif;
             padding: 20px;
             max-width: 800px;
             margin: auto;
+            background-color: #e0f7f3;
+            scroll-behavior: smooth;
+        }
+        h1, h2, th, td {
+            font-family: 'DoodleFont3', sans-serif;
         }
         table {
             border-collapse: collapse;
@@ -46,7 +58,7 @@
                 var currentTable;
                 data.forEach(function(d) {
                     if(d['Topic'] !== '') {
-                        var div = container.append('div').attr('id', d['Slug']);
+                        var div = container.append('div').attr('id', d['slug']);
                         div.append('img')
                             .attr('src', window.location.href + '/imgs/' + d['Image URL'])
                             .attr('alt', d['Label'])
@@ -57,7 +69,7 @@
                         var table = div.append('table');
                         currentTable = table.append('tbody');
                     } 
-                    var row = currentTable.append('tr');
+                    var row = currentTable.append('tr').attr('id', d['slug']);
                     row.append('td').text(d['Number']);
                     row.append('td').text(d['Label']);
                     row.append('td').html(d['Description']);
@@ -66,7 +78,7 @@
             })
             .catch(function(error){
                 console.log(error);
-            });
+        });
     </script>
 </body>
 </html>
