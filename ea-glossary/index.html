@@ -6,88 +6,12 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        @font-face {
-            font-family: 'DoodleFont3';
-            src: url('./doodlefont3.ttf') format('truetype');
-        }
-
-        html{scroll-behavior:smooth}
-
-        body {
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            background-color: #e0f7f3;
-            scroll-behavior: smooth;
-        }
-        h1, h2, th, td {
-            font-family: 'DoodleFont3', sans-serif;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .table-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-        }
-        .image-container {
-            text-align: center;
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-        }
-        a {
-            color: teal;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-        a:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>101 Effective Altruism Concepts</h1>
     <div id="data-container"></div>
 
-    <script>
-        d3.csv("https://docs.google.com/spreadsheets/d/1FPOw1raQDn3xXmr2ejbYrUr8U_ZtxalJjB3pdNBvyUQ/export?format=csv&gid=0")
-            .then(function(data) {
-                var container = d3.select("#data-container");
-                var currentTable;
-                data.forEach(function(d) {
-                    if(d['Topic'] !== '') {
-                        var div = container.append('div').attr('id', d['slug']);
-                        div.append('img')
-                            .attr('src', window.location.origin + window.location.pathname + '/imgs/' + d['Image URL'])
-                            .attr('alt', d['Label'])
-                            .classed('image-container', true);
-                        div.append('h2')
-                            .text(d['Topic'])
-                            .classed('table-title', true);
-                        var table = div.append('table');
-                        currentTable = table.append('tbody');
-                    } 
-                    var row = currentTable.append('tr').attr('id', d['slug']);
-                    row.append('td').text(d['Number']);
-                    row.append('td').text(d['Label']);
-                    row.append('td').html(d['Description']);
-                    MathJax.typeset(); 
-                });
-            })
-            .catch(function(error){
-                console.log(error);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
