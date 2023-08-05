@@ -21,6 +21,17 @@ d3.csv("https://docs.google.com/spreadsheets/d/1FPOw1raQDn3xXmr2ejbYrUr8U_ZtxalJ
             row.append('td').html(d['Description']);
             MathJax.typeset(); 
         });
+
+        
+// Scroll to the anchor if exists
+let hash = window.location.hash;
+if (hash) {
+    let element = document.querySelector(hash);
+    if (element) {
+        element.scrollIntoView({block: 'start'});
+    }
+}
+
     })
     .catch(function(error){
         console.log(error);
