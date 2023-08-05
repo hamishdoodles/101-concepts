@@ -69,7 +69,7 @@
                     if(d['Topic'] !== '') {
                         var div = container.append('div').attr('id', d['slug']);
                         div.append('img')
-                            .attr('src', window.location.href + '/imgs/' + d['Image URL'])
+                            .attr('src', window.location.origin + window.location.pathname + '/imgs/' + d['Image URL'])
                             .attr('alt', d['Label'])
                             .classed('image-container', true);
                         div.append('h2')
