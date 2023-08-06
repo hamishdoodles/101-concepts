@@ -1,0 +1,35 @@
+body {
+  background-color: lightcyan;
+  font-family: "doodlefont3", sans-serif;
+  max-width: 800px; /* Tablet size */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.image-container {
+  text-align: center;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.table-title {
+  text-align: center;
+}
+
+/* Links styling */
+a {
+  color: teal;
+  text-decoration: none;
+  display: inline-block;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+a:hover {
+  transform: scale(1.05);
+}
