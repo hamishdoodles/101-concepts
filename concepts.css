@@ -1,5 +1,4 @@
 body {
-  background-color: lightcyan;
   font-family: "doodlefont3", sans-serif;
   max-width: 800px; /* Tablet size */
   margin: 0 auto;
@@ -23,7 +22,6 @@ html {
 
 /* Links styling */
 a {
-  color: teal;
   text-decoration: none;
   display: inline-block;
   transform: scale(1);

@@ -1,3 +1,11 @@
 @import '../concepts.css';
 
-/* Specific styling for EA glossary, if needed */
+/* Specific styling for EA Concepts */
+
+body {
+  background-color: lightcyan;
+}
+
+a {
+  color: teal;
+}
