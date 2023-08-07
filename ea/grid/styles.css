@@ -13,20 +13,35 @@ body, html {
   overflow: auto;
 }
 
+#pages,
+#tiles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow-y: scroll;
+  transition: opacity 0.3s ease; 
+}
+
 #pages {
   left: 0;
   display: grid;
   grid-template-columns: 1fr;
   scroll-snap-type: y mandatory;
-  z-index: 1;
+  z-index: 0;
 }
 
 #tiles {
   right: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  z-index: 0; /* Tiles will be behind Pages on the z-axis */
-  transition: opacity 0.3s ease; 
+  z-index: 1; /* Tiles will be behind Pages on the z-axis */
+}
+
+#tiles.invisible {
+  opacity: 0;
+  pointer-events: none; /* Disable interactions with Tiles */
 }
 
 .tile.expanded {

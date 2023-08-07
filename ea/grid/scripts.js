@@ -21,13 +21,7 @@ for (let i = 0; i < 40; i++) {
 
   // Add click event to jump to corresponding element in Pages
   tileDiv.addEventListener('click', () => {
-    tileDiv.classList.add('expanded', 'full-viewport');
-    tilesContainer.style.opacity = '0'; // Make Tiles invisible
-
-    setTimeout(() => {
-      tileDiv.classList.remove('expanded', 'full-viewport');
-      tilesContainer.style.opacity = '1'; // Make Tiles visible again
-    }, 300);
+    tilesContainer.classList.add('invisible');
 
     const targetPage = pagesContainer.children[i];
     pagesContainer.scrollTo({ top: targetPage.offsetTop, behavior: 'smooth' });
@@ -47,11 +41,6 @@ pagesContainer.addEventListener('scroll', () => {
 document.querySelectorAll('.close-section').forEach((closeButton, index) => {
   closeButton.addEventListener('click', () => {
     const correspondingTile = tilesContainer.children[index];
-    correspondingTile.classList.add('expanded');
-
-    setTimeout(() => {
-      tilesContainer.style.opacity = '1'; // Make Tiles visible again
-      correspondingTile.classList.remove('expanded');
-    }, 300);
+    tilesContainer.classList.remove('invisible');
   });
 });
