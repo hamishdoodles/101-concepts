@@ -19,44 +19,39 @@ for (let i = 0; i < 40; i++) {
   tileDiv.textContent = i;
   tilesContainer.appendChild(tileDiv);
 
-  // Hide tiles on click
+  // Add click event to jump to corresponding element in Pages
   tileDiv.addEventListener('click', () => {
-    tilesContainer.classList.add('hidden');
-  });
-  
-  // Show tiles on click of close button in pages
-  pageDiv.querySelector('.close-section').addEventListener('click', () => {
-    tilesContainer.classList.remove('hidden');
+    tileDiv.classList.add('expanded', 'full-viewport');
+    tilesContainer.style.opacity = '0'; // Make Tiles invisible
+
+    setTimeout(() => {
+      tileDiv.classList.remove('expanded', 'full-viewport');
+      tilesContainer.style.opacity = '1'; // Make Tiles visible again
+    }, 300);
+
+    const targetPage = pagesContainer.children[i];
+    pagesContainer.scrollTo({ top: targetPage.offsetTop, behavior: 'smooth' });
   });
 }
 
 // Measure total scrollable heights
 const pagesScrollHeight = pagesContainer.scrollHeight - pagesContainer.clientHeight;
 const tilesScrollHeight = tilesContainer.scrollHeight - tilesContainer.clientHeight;
-const scrollFactorPagesToTiles = tilesScrollHeight / pagesScrollHeight;
-const scrollFactorTilesToPages = pagesScrollHeight / tilesScrollHeight;
+const scrollFactor = tilesScrollHeight / pagesScrollHeight;
 
-let activeScrollContainer = null; // Keep track of the active scroll container
-
-// Sync scroll from pages to tiles
+// Sync scroll between pages and tiles
 pagesContainer.addEventListener('scroll', () => {
-  if (activeScrollContainer !== pagesContainer) return;
-  tilesContainer.scrollTop = pagesContainer.scrollTop * scrollFactorPagesToTiles;
+  tilesContainer.scrollTop = pagesContainer.scrollTop * scrollFactor;
 });
 
-// Sync scroll from tiles to pages
-tilesContainer.addEventListener('scroll', () => {
-  if (activeScrollContainer !== tilesContainer) return;
-  pagesContainer.scrollTop = tilesContainer.scrollTop * scrollFactorTilesToPages;
-});
+document.querySelectorAll('.close-section').forEach((closeButton, index) => {
+  closeButton.addEventListener('click', () => {
+    const correspondingTile = tilesContainer.children[index];
+    correspondingTile.classList.add('expanded');
 
-// Determine the active scroll container on mouseover
-pagesContainer.addEventListener('mouseover', () => {
-  activeScrollContainer = pagesContainer;
+    setTimeout(() => {
+      tilesContainer.style.opacity = '1'; // Make Tiles visible again
+      correspondingTile.classList.remove('expanded');
+    }, 300);
+  });
 });
-
-tilesContainer.addEventListener('mouseover', () => {
-  activeScrollContainer = tilesContainer;
-});
-// ... Previous JavaScript ...
-

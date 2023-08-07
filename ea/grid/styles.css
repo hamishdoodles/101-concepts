@@ -8,7 +8,7 @@ body, html {
 .container {
   position: absolute;
   top: 0;
-  width: 100%; /* This will make it span the full viewport width */
+  width: 50%;
   height: 100%;
   overflow: auto;
 }
@@ -17,14 +17,32 @@ body, html {
   left: 0;
   display: grid;
   grid-template-columns: 1fr;
-  z-index: 0; /* Set a lower z-index for clarity, though this is the default value */
+  scroll-snap-type: y mandatory;
+  z-index: 1;
 }
 
 #tiles {
   right: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  z-index: 1; /* Ensure tiles is on top */
+  z-index: 0; /* Tiles will be behind Pages on the z-axis */
+  transition: opacity 0.3s ease; 
+}
+
+.tile.expanded {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  transition: transform 0.3s ease;
+  z-index: 2; /* Above both Pages and Tiles */
+}
+
+.tile.expanded.full-viewport {
+  transform: scale(1); /* Fill the whole viewport */
+}
+
+.close-section {
+  cursor: pointer; /* Add pointer cursor for the close button */
 }
 
 .page, .tile {
@@ -38,10 +56,16 @@ body, html {
 .page {
   height: 100vh;
   position: relative;
+  scroll-snap-align: start;
 }
 
 .tile {
   height: 300px;
+  transition: transform 0.3s ease;
+}
+
+.tile:hover {
+  transform: scale(1.1); /* Scale the element to 110% of its original size */
 }
 
 .close-section {
@@ -49,8 +73,4 @@ body, html {
   top: 15px;
   right: 15px;
   cursor: pointer;
-}
-#tiles.hidden {
-  visibility: hidden; /* Hide but maintain layout */
-  pointer-events: none; /* Prevent interaction */
 }
