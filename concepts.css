@@ -33,3 +33,16 @@ a {
 a:hover {
   transform: scale(1.05);
 }
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1) rotate(2deg); /* Original size at the beginning and end of animation */
+  }
+  50% {
+    transform: scale(1.05) rotate(-2deg); /* Slightly expanded in the middle of animation */
+  }
+}
+
+.breathe-image {
+  animation: breathe 6s infinite ease-in-out; /* Apply the animation */
+}

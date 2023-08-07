@@ -41,7 +41,8 @@ function createTopicSection(container, d) {
     div.append('img')
         .attr('src', window.location.origin + window.location.pathname + '/imgs/' + d['Image URL'])
         .attr('alt', d['Label'])
-        .classed('image-container', true);
+        .classed('image-container', true)
+        .classed('breathe-image', true);
     div.append('h2')
         .text(d['Topic'])
         .classed('table-title', true);
