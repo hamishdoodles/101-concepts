@@ -1,0 +1,91 @@
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: auto;
+}
+
+#pages,
+#tiles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow-y: scroll;
+  transition: opacity 0.3s ease; 
+}
+
+#pages {
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  scroll-snap-type: y mandatory;
+  z-index: 0;
+}
+
+#tiles {
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  z-index: 1; /* Tiles will be behind Pages on the z-axis */
+}
+
+#tiles.invisible {
+  opacity: 0;
+  pointer-events: none; /* Disable interactions with Tiles */
+}
+
+.tile.expanded {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  transition: transform 0.3s ease;
+  z-index: 2; /* Above both Pages and Tiles */
+}
+
+.tile.expanded.full-viewport {
+  transform: scale(1); /* Fill the whole viewport */
+}
+
+.close-section {
+  cursor: pointer; /* Add pointer cursor for the close button */
+}
+
+.page, .tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 32px;
+}
+
+.page {
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.tile {
+  height: 300px;
+  transition: transform 0.3s ease;
+}
+
+.tile:hover {
+  transform: scale(1.1); /* Scale the element to 110% of its original size */
+}
+
+.close-section {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
