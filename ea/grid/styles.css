@@ -1,0 +1,58 @@
+body, html {
+  margin: 0;
+  height: 100%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 300px;
+  transition: all 0.3s ease;
+}
+
+.is-expanded {
+  grid-template-columns: 1fr !important;
+  height: 100vh !important;
+}
+
+.section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.section:nth-child(5n + 1) {
+  background-color: #38a8cc;
+}
+
+.section:nth-child(5n + 2) {
+  background-color: #004444;
+}
+
+.section:nth-child(5n + 3) {
+  background-color: #884444;
+}
+
+.section:nth-child(5n + 4) {
+  background-color: #555588;
+}
+
+.section:nth-child(5n + 5) {
+  background-color: #a84466;
+}
+
+.close-section {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  display: none;
+}
+
+.has-expanded-item .close-section {
+  display: block;
+}
