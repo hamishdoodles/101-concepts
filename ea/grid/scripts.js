@@ -18,6 +18,16 @@ for (let i = 0; i < 40; i++) {
   tileDiv.style.backgroundColor = color;
   tileDiv.textContent = i;
   tilesContainer.appendChild(tileDiv);
+
+  // Hide tiles on click
+  tileDiv.addEventListener('click', () => {
+    tilesContainer.classList.add('hidden');
+  });
+  
+  // Show tiles on click of close button in pages
+  pageDiv.querySelector('.close-section').addEventListener('click', () => {
+    tilesContainer.classList.remove('hidden');
+  });
 }
 
 // Measure total scrollable heights
@@ -48,3 +58,5 @@ pagesContainer.addEventListener('mouseover', () => {
 tilesContainer.addEventListener('mouseover', () => {
   activeScrollContainer = tilesContainer;
 });
+// ... Previous JavaScript ...
+

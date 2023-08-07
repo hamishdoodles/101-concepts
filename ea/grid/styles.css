@@ -8,7 +8,7 @@ body, html {
 .container {
   position: absolute;
   top: 0;
-  width: 50%;
+  width: 100%; /* This will make it span the full viewport width */
   height: 100%;
   overflow: auto;
 }
@@ -17,12 +17,14 @@ body, html {
   left: 0;
   display: grid;
   grid-template-columns: 1fr;
+  z-index: 0; /* Set a lower z-index for clarity, though this is the default value */
 }
 
 #tiles {
   right: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  z-index: 1; /* Ensure tiles is on top */
 }
 
 .page, .tile {
@@ -47,4 +49,8 @@ body, html {
   top: 15px;
   right: 15px;
   cursor: pointer;
+}
+#tiles.hidden {
+  visibility: hidden; /* Hide but maintain layout */
+  pointer-events: none; /* Prevent interaction */
 }
