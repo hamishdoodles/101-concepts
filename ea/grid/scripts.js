@@ -132,9 +132,11 @@ function insertCrossReferences(description, labelToSlug) {
 function scrollToAnchor() {
     let hash = window.location.hash;
     if (hash) {
-        let element = document.querySelector(hash);
+        const element = document.querySelector(hash);
         if (element) {
-            element.scrollIntoView({ top: targetPage.offsetTop, behavior: 'smooth' });
+        console.log(element, element.offsetTop)
+            pagesContainer.style.left = '0%'; // Move Pages to cover the screen
+            pagesContainer.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
         }
     }
 }
