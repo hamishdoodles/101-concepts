@@ -3,14 +3,38 @@ const colors = ["#38a8cc", "#004444", "#884444", "#555588", "#a84466"];
 const pagesContainer = document.getElementById('pages');
 const tilesContainer = document.getElementById('tiles');
 
-function addCard(i, title) {
+function addCard(d, labelToSlug) {
+
+  i = parseInt(d['Number'])-1
+  title = d['Label']
   const color = colors[i % colors.length];
 
-  const pageDiv = document.createElement('div');
-  pageDiv.className = 'page';
-  pageDiv.style.backgroundColor = color;
-  pageDiv.innerHTML = `<div class="close-section">&times;</div>${i+1} ${title}`;
-  pagesContainer.appendChild(pageDiv);
+  const pageDiv = d3.select('#pages')
+    .append('div');
+  pageDiv
+    .attr('id', d['slug'])
+    .classed('page', true)
+    .style("background-color", color);
+
+  pageDiv.append('div')
+    .classed('close-section', true)
+    .html('&times')
+
+  var description = insertCrossReferences(d['Description'], labelToSlug);
+  pageDiv.append('div')
+    .html(`${i+1} ${title}`)
+    .append('p')
+    .html(description)
+    .style('max-width', '600px')
+
+  if (d['Image URL'] != '') {
+      pageDiv.append('img')
+          .attr('src', window.location.origin + window.location.pathname + '../imgs/' + d['Image URL'])
+          .attr('alt', d['Label'])
+          .classed('image-container', true)
+          .classed('breathe-image', true);
+  }
+  MathJax.typeset();
 
   const tileDiv = document.createElement('div');
   tileDiv.className = 'tile';
@@ -67,7 +91,7 @@ function buildGlossary(containerId, data, labelToSlug) {
             addCard(d['Number'], d['Label'])
         }
         */
-        addCard(parseInt(d['Number'])-1, d['Label'])
+        addCard(d, labelToSlug)
         /* createTableEntry(currentTable, d, labelToSlug); */
     });
 }
