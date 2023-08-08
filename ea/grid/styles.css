@@ -1,8 +1,43 @@
+:root {
+  --banner-height: 60px; /* Define banner height as a variable */
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body, html {
   margin: 0;
   overflow: hidden;
   height: 100%;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--banner-height); /* Use the variable here */
+  background-color: #38a8cc;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+#pages,
+#tiles {
+  position: absolute;
+  top: var(--banner-height); /* Use the variable here */
+  left: 0;
+  width: 100vw;
+  height: calc(100% - var(--banner-height)); /* Use the variable here */
+  overflow-y: scroll;
+  transition: opacity 0.3s ease;
 }
 
 .container {
@@ -13,47 +48,25 @@ body, html {
   overflow: auto;
 }
 
-#pages,
-#tiles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  overflow-y: scroll;
-  transition: opacity 0.3s ease; 
-}
-
 #pages {
-  left: 0;
+  left: 100%; /* Start off-screen to the right */
   display: grid;
   grid-template-columns: 1fr;
   scroll-snap-type: y mandatory;
-  z-index: 0;
+  transition: left 0.3s ease; /* Transition the left property */
+  z-index: 1; /* Pages will be on top of Tiles on the z-axis */
 }
 
 #tiles {
   right: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  z-index: 1; /* Tiles will be behind Pages on the z-axis */
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  z-index: 0;
 }
 
 #tiles.invisible {
   opacity: 0;
   pointer-events: none; /* Disable interactions with Tiles */
-}
-
-.tile.expanded {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  transition: transform 0.3s ease;
-  z-index: 2; /* Above both Pages and Tiles */
-}
-
-.tile.expanded.full-viewport {
-  transform: scale(1); /* Fill the whole viewport */
 }
 
 .close-section {
@@ -66,10 +79,11 @@ body, html {
   align-items: center;
   color: white;
   font-size: 32px;
+  padding: 50px;
 }
 
 .page {
-  height: 100vh;
+  height: calc(100vh - var(--banner-height));
   position: relative;
   scroll-snap-align: start;
 }
@@ -77,6 +91,8 @@ body, html {
 .tile {
   height: 300px;
   transition: transform 0.3s ease;
+  cursor: pointer;
+  padding: 30px;
 }
 
 .tile:hover {

@@ -3,14 +3,38 @@ const colors = ["#38a8cc", "#004444", "#884444", "#555588", "#a84466"];
 const pagesContainer = document.getElementById('pages');
 const tilesContainer = document.getElementById('tiles');
 
-function addCard(i, title) {
+function addCard(index, d, labelToSlug) {
+
+  i = parseInt(d['Number'])-1
+  title = d['Label']
   const color = colors[i % colors.length];
 
-  const pageDiv = document.createElement('div');
-  pageDiv.className = 'page';
-  pageDiv.style.backgroundColor = color;
-  pageDiv.innerHTML = `<div class="close-section">&times;</div>${i+1} ${title}`;
-  pagesContainer.appendChild(pageDiv);
+  const pageDiv = d3.select('#pages')
+    .append('div');
+  pageDiv
+    .attr('id', d['slug'])
+    .classed('page', true)
+    .style("background-color", color);
+
+  pageDiv.append('div')
+    .classed('close-section', true)
+    .html('&times')
+
+  var description = insertCrossReferences(d['Description'], labelToSlug);
+  pageDiv.append('div')
+    .html(`${i+1} ${title}`)
+    .append('p')
+    .html(description)
+    .style('max-width', '600px')
+
+  if (d['Image URL'] != '') {
+      pageDiv.append('img')
+          .attr('src', window.location.origin + window.location.pathname + '../imgs/' + d['Image URL'])
+          .attr('alt', d['Label'])
+          .classed('image-container', true)
+          .classed('breathe-image', true);
+  }
+  MathJax.typeset();
 
   const tileDiv = document.createElement('div');
   tileDiv.className = 'tile';
@@ -20,10 +44,9 @@ function addCard(i, title) {
 
   // Add click event to jump to corresponding element in Pages
   tileDiv.addEventListener('click', () => {
-    tilesContainer.classList.add('invisible');
-
-    const targetPage = pagesContainer.children[i];
-    pagesContainer.scrollTo({ top: targetPage.offsetTop, behavior: 'smooth' });
+    const targetPage = pagesContainer.children[index];
+    pagesContainer.scrollTo({ top: targetPage.offsetTop });
+    pagesContainer.style.left = '0%'; // Move Pages to cover the screen
   });
 }
 
@@ -61,15 +84,14 @@ function buildGlossary(containerId, data, labelToSlug) {
     var container = d3.select(containerId);
     var currentTable;
 
-    data.forEach(function(d) {
+    data.forEach(function(d, i) {
         /*
         if (d['Topic'] !== '') {
             // currentTable = createTopicSection(container, d);
             addCard(d['Number'], d['Label'])
         }
         */
-        addCard(parseInt(d['Number'])-1, d['Label'])
-        /* createTableEntry(currentTable, d, labelToSlug); */
+        addCard(i, d, labelToSlug)
     });
 }
 
@@ -112,7 +134,7 @@ function scrollToAnchor() {
     if (hash) {
         let element = document.querySelector(hash);
         if (element) {
-            element.scrollIntoView();
+            element.scrollIntoView({ top: targetPage.offsetTop, behavior: 'smooth' });
         }
     }
 }
@@ -136,10 +158,9 @@ function activateScroll() {
 
 function activateCloseButtons() {
   document.querySelectorAll('.close-section').forEach((closeButton, index) => {
-    console.log('close', index);
-    closeButton.addEventListener('click', () => {
-      const correspondingTile = tilesContainer.children[index];
-      tilesContainer.classList.remove('invisible');
-    });
+	closeButton.addEventListener('click', () => {
+	  const correspondingTile = tilesContainer.children[index];
+	  pagesContainer.style.left = '100%'; // Move Pages off-screen to the right
+	});
   });
 }
