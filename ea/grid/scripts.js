@@ -3,7 +3,7 @@ const colors = ["#38a8cc", "#004444", "#884444", "#555588", "#a84466"];
 const pagesContainer = document.getElementById('pages');
 const tilesContainer = document.getElementById('tiles');
 
-function addCard(d, labelToSlug) {
+function addCard(index, d, labelToSlug) {
 
   i = parseInt(d['Number'])-1
   title = d['Label']
@@ -44,7 +44,7 @@ function addCard(d, labelToSlug) {
 
   // Add click event to jump to corresponding element in Pages
   tileDiv.addEventListener('click', () => {
-    const targetPage = pagesContainer.children[i];
+    const targetPage = pagesContainer.children[index];
     pagesContainer.scrollTo({ top: targetPage.offsetTop });
     pagesContainer.style.left = '0%'; // Move Pages to cover the screen
   });
@@ -84,14 +84,14 @@ function buildGlossary(containerId, data, labelToSlug) {
     var container = d3.select(containerId);
     var currentTable;
 
-    data.forEach(function(d) {
+    data.forEach(function(d, i) {
         /*
         if (d['Topic'] !== '') {
             // currentTable = createTopicSection(container, d);
             addCard(d['Number'], d['Label'])
         }
         */
-        addCard(d, labelToSlug)
+        addCard(i, d, labelToSlug)
         /* createTableEntry(currentTable, d, labelToSlug); */
     });
 }
