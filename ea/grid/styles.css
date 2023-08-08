@@ -35,7 +35,7 @@ body, html {
 #tiles {
   right: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   z-index: 1; /* Tiles will be behind Pages on the z-axis */
 }
 
@@ -66,6 +66,7 @@ body, html {
   height: 300px;
   transition: transform 0.3s ease;
   cursor: pointer;
+  padding: 30px;
 }
 
 .tile:hover {
