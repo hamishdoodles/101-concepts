@@ -20,10 +20,9 @@ function addCard(i, title) {
 
   // Add click event to jump to corresponding element in Pages
   tileDiv.addEventListener('click', () => {
-    tilesContainer.classList.add('invisible');
-
     const targetPage = pagesContainer.children[i];
-    pagesContainer.scrollTo({ top: targetPage.offsetTop, behavior: 'smooth' });
+    pagesContainer.scrollTo({ top: targetPage.offsetTop });
+    pagesContainer.style.left = '0%'; // Move Pages to cover the screen
   });
 }
 
@@ -112,7 +111,7 @@ function scrollToAnchor() {
     if (hash) {
         let element = document.querySelector(hash);
         if (element) {
-            element.scrollIntoView();
+            element.scrollIntoView({ top: targetPage.offsetTop, behavior: 'smooth' });
         }
     }
 }
@@ -136,10 +135,9 @@ function activateScroll() {
 
 function activateCloseButtons() {
   document.querySelectorAll('.close-section').forEach((closeButton, index) => {
-    console.log('close', index);
-    closeButton.addEventListener('click', () => {
-      const correspondingTile = tilesContainer.children[index];
-      tilesContainer.classList.remove('invisible');
-    });
+	closeButton.addEventListener('click', () => {
+	  const correspondingTile = tilesContainer.children[index];
+	  pagesContainer.style.left = '100%'; // Move Pages off-screen to the right
+	});
   });
 }

@@ -25,18 +25,19 @@ body, html {
 }
 
 #pages {
-  left: 0;
+  left: 100%; /* Start off-screen to the right */
   display: grid;
   grid-template-columns: 1fr;
   scroll-snap-type: y mandatory;
-  z-index: 0;
+  transition: left 0.3s ease; /* Transition the left property */
+  z-index: 1; /* Pages will be on top of Tiles on the z-axis */
 }
 
 #tiles {
   right: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  z-index: 1; /* Tiles will be behind Pages on the z-axis */
+  z-index: 0;
 }
 
 #tiles.invisible {
