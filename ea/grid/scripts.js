@@ -92,7 +92,6 @@ function buildGlossary(containerId, data, labelToSlug) {
         }
         */
         addCard(i, d, labelToSlug)
-        /* createTableEntry(currentTable, d, labelToSlug); */
     });
 }
 
