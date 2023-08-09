@@ -46,7 +46,6 @@ body, html {
 #tiles {
   position: absolute;
   top: var(--banner-height); /* Use the variable here */
-  left: 0;
   width: 100vw;
   height: calc(100vh - var(--banner-height)); /* Use the variable here */
   overflow-y: scroll;
@@ -54,7 +53,7 @@ body, html {
 }
 
 #pages {
-  left: 100vw /* Start off-screen to the right */
+  left: 100vw; /* Start off-screen to the right */
   display: grid;
   grid-template-columns: 1fr;
   scroll-snap-type: y mandatory;
@@ -63,7 +62,7 @@ body, html {
 }
 
 #tiles {
-  right: 0;
+  left: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   z-index: 0;
