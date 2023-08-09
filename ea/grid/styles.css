@@ -4,6 +4,15 @@
   --banner-height: 60px; /* Define banner height as a variable */
 }
 
+#loading {
+    max-width: 200px;
+    height: auto;
+    position: fixed;
+    top: calc((100% - var(--banner-height))/2);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 * {
   box-sizing: border-box;
 }
