@@ -47,10 +47,10 @@ function addCard(index, d, labelToSlug) {
     const targetPage = pagesContainer.children[index];
     pagesContainer.scrollTo({ top: targetPage.offsetTop });
     pagesContainer.style.left = '0%'; // Move Pages to cover the screen
+    setTimeout(function() {
+      tilesContainer.classList.add('invisible');
+    }, 1000);
   });
-  setTimeout(function() {
-    tilesDiv.classList.add('invisible');
-  }, 1000);
 }
 
 
@@ -165,7 +165,7 @@ function activateScroll() {
 function activateCloseButtons() {
   document.querySelectorAll('.close-section').forEach((closeButton, index) => {
 	closeButton.addEventListener('click', () => {
-      tilesDiv.classList.remove('invisible');
+      tilesContainer.classList.remove('invisible');
 	  const correspondingTile = tilesContainer.children[index];
 	  pagesContainer.style.left = '100%'; // Move Pages off-screen to the right
 	});
