@@ -60,6 +60,7 @@ function renderFromSpreadsheet(csvUrl, containerId) {
             console.table(data);
             var labelToSlug = createCrossReferenceMapping(data);
             buildGlossary(containerId, data, labelToSlug);
+            d3.select("#loading").remove();
             activateScroll();
             scrollToAnchor();
             activateCloseButtons();
