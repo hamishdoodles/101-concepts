@@ -1,3 +1,5 @@
+@import '../concepts.css';
+
 :root {
   --banner-height: 60px; /* Define banner height as a variable */
 }

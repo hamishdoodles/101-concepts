@@ -1,6 +1,11 @@
+@font-face {
+  font-family: 'doodlefont';
+  src: url('/assets/doodlefont3.ttf') format('truetype');
+}
+
 body {
   background-color: lightcyan;
-  font-family: "doodlefont3", sans-serif;
+  font-family: "doodlefont", sans-serif;
   max-width: 800px; /* Tablet size */
   margin: 0 auto;
   padding: 20px;
