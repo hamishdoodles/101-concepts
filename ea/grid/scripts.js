@@ -48,6 +48,9 @@ function addCard(index, d, labelToSlug) {
     pagesContainer.scrollTo({ top: targetPage.offsetTop });
     pagesContainer.style.left = '0%'; // Move Pages to cover the screen
   });
+  setTimeout(function() {
+    tilesDiv.classList.add('invisible');
+  }, 1000);
 }
 
 
@@ -162,6 +165,7 @@ function activateScroll() {
 function activateCloseButtons() {
   document.querySelectorAll('.close-section').forEach((closeButton, index) => {
 	closeButton.addEventListener('click', () => {
+      tilesDiv.classList.remove('invisible');
 	  const correspondingTile = tilesContainer.children[index];
 	  pagesContainer.style.left = '100%'; // Move Pages off-screen to the right
 	});
