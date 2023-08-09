@@ -6,8 +6,8 @@
     max-width: 200px;
     height: auto;
     position: fixed;
-    top: calc((100% - var(--banner-height))/2);
-    left: 50%;
+    top: calc((100vh - var(--banner-height))/2);
+    left: 50vw;
     transform: translate(-50%, -50%);
 }
 
@@ -44,21 +44,13 @@ body, html {
   top: var(--banner-height); /* Use the variable here */
   left: 0;
   width: 100vw;
-  height: calc(100% - var(--banner-height)); /* Use the variable here */
+  height: calc(100vh - var(--banner-height)); /* Use the variable here */
   overflow-y: scroll;
   transition: opacity 0.3s ease;
 }
 
-.container {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  overflow: auto;
-}
-
 #pages {
-  left: 100%; /* Start off-screen to the right */
+  left: 100vw /* Start off-screen to the right */
   display: grid;
   grid-template-columns: 1fr;
   scroll-snap-type: y mandatory;
