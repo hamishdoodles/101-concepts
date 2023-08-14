@@ -21,6 +21,7 @@ function addCard(index, d, labelToSlug) {
     .html('&times')
 
   var description = insertCrossReferences(d['Description'], labelToSlug);
+  console.log(description)
   pageDiv.append('div')
     .html(`${i+1} ${title}`)
     .append('p')
@@ -77,8 +78,12 @@ function renderFromSpreadsheet(csvUrl, containerId) {
 function createCrossReferenceMapping(data) {
     var labelToSlug = {};
     data.forEach(function(d) {
-        labelToSlug[d['Label'].trim()] = d['slug'];
-        d['aka'].trim() && d['aka'].split(',').forEach(alias => labelToSlug[alias.trim()] = d['slug']);
+		[d['Label']].concat(d['aka'].split(','))
+		  .map(label => label.trim())  // Trimming each label
+		  .filter(label => label !== '') // Filtering out empty strings
+		  .forEach(label => {
+			labelToSlug[label] = d['slug'];
+		  });
     });
     return labelToSlug;
 }
@@ -111,16 +116,6 @@ function createTopicSection(container, d) {
         .text(d['Topic'])
         .classed('table-title', true);
     return div
-}
-
-// Creates a table entry for a single row
-function createTableEntry(currentTable, d, labelToSlug) {
-    d['Description'] = insertCrossReferences(d['Description'], labelToSlug);
-    var row = currentTable.append('tr').attr('id', d['slug']);
-    row.append('td').text(d['Number']);
-    row.append('td').text(d['Label']);
-    row.append('td').html(d['Description']);
-    MathJax.typeset();
 }
 
 // Replaces instances of "Concept 1" with "<a href='#concept-1'>Concept 1</a>"
